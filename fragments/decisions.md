@@ -8,3 +8,6 @@ To boot from a usb stick, it should be formatted with a GPT partitioning scheme 
 
 ## Why use Assembly Language for Booting and Installer?
 Creation of the e6 compiler in a way neccessitated my use of Assembly language for the boot loader and installer of e6os. I wanted the compiler to be able to produce UEFI applications and this required knowledge of PE64 executables (particularly the headers), and what better way was there to gain that knowledge than by manually crafting the PE64 headers by hand in assembly language. 
+
+## Miscellaneous
+During the early stages of development, I decided I needed, as quickly and early as possible, functions that can help with debugging during development. For this reason, the first function I wrote was `e6_uefi_print_uefi_string`. This function prints out a UEFI string to screen.
