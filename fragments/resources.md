@@ -7,3 +7,6 @@
 6. Visual Studio Code
 7. Qemu Emulator
 8. The PE Specifications
+
+# TODO:
+- Add how to install NASM and Qemu on Windows, Linux, and Mac
