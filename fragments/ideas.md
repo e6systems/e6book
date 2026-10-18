@@ -9,3 +9,9 @@ At this point, I can almost feel the excitement and the rush of adrenaline in yo
 <TODO: Add code here>
 ```
 `<TODO Add instructions for building and running the above code>`
+
+## Some Chapter Ideas
+1. A primer on assembly language (NASM).
+2. Tricky instructions `lodsb` and friends, `stosb` and friends, the `loop` instruction.
+3. Endianness
+4. Recommended reading `the art of assembly language`
