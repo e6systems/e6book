@@ -30,3 +30,23 @@ UEFI involves a lot of dereferencing and indirection, so when writing a UEFI app
 
         times 60 - ($ - STANDARD_HEADER) db 0    
 ```
+
+## Caution: never hand-count structure offsets
+
+When you store values at fixed offsets from a base register, such as [rbp + 24], the offset is a copy of your data layout kept in your head. If you later insert, remove or reorder a field in the layout, the code still compiles and still assembles, but it now writes to the wrong slot.
+
+The failure shows up far from the cause. In the e6 installer, a function pointer was saved at offset 24 after a new field had moved that slot to offset 32. The startup code kept working, because it used the pointer straight from the UEFI table. Later, a helper read the correct slot, found it empty, and called address 0, which hung the machine with no error message.
+
+Let the assembler do the counting. Define the layout once as a NASM struc, and refer to fields by name:
+
+```nasm
+struc e6_efi_resources
+    .image_handle   resq 1
+    .system_table   resq 1
+    .output_string  resq 1
+endstruc
+
+mov [rbp + e6_efi_resources.output_string], rax
+```
+
+Now the offset always follows the layout, and adding a field can't silently break the code that uses the others. Even a plain BSS.OutputString - BSS.EFI_IMAGE_HANDLE expression is safer than a literal number.
