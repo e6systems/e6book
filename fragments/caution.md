@@ -49,4 +49,4 @@ endstruc
 mov [rbp + e6_efi_resources.output_string], rax
 ```
 
-Now the offset always follows the layout, and adding a field can't silently break the code that uses the others. Even a plain BSS.OutputString - BSS.EFI_IMAGE_HANDLE expression is safer than a literal number.
+Now the offset always follows the layout, and adding a field can't silently break the code that uses the others. Even a plain `BSS.OutputString - BSS.EFI_IMAGE_HANDLE` expression is safer than a literal number.
