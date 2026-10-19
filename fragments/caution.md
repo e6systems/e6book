@@ -33,7 +33,7 @@ UEFI involves a lot of dereferencing and indirection, so when writing a UEFI app
 
 ## Caution: never hand-count structure offsets
 
-When you store values at fixed offsets from a base register, such as [rbp + 24], the offset is a copy of your data layout kept in your head. If you later insert, remove or reorder a field in the layout, the code still compiles and still assembles, but it now writes to the wrong slot.
+When you store values at fixed offsets from a base register, such as `[rbp + 24]`, the offset is a copy of your data layout kept in your head. If you later insert, remove or reorder a field in the layout, the code still compiles and still assembles, but it now writes to the wrong slot.
 
 The failure shows up far from the cause. In the e6 installer, a function pointer was saved at offset 24 after a new field had moved that slot to offset 32. The startup code kept working, because it used the pointer straight from the UEFI table. Later, a helper read the correct slot, found it empty, and called address 0, which hung the machine with no error message.
 
